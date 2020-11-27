@@ -1,46 +1,32 @@
-import React, {useState} from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import EmployeesList from '../employees-list/employees-list';
-import {EmployeesData} from "../../types";
+import Controls from '../controls/controls'
+import {EmployeesData, State} from "../../types";
 import './App.css';
-import {SortType} from "../../const";
 
 type Props = {
   employeesData: EmployeesData[]
+  sortType: string
 }
 
-const App: React.FunctionComponent<Props> = ({employeesData}: Props) => {
-  const [sortType, setSortType] = useState(SortType.NAME)
+const App: React.FunctionComponent<Props> = ({employeesData, sortType}: Props) => {
   return (
     <>
     <header>
       <h1>Employee App</h1>
     </header>
     <main>
-      <section className="controls">
-        <h2>Controls</h2>
-        <div className="controls__sorting">
-          <p>Сортировать по:</p>
-          <input type="radio" name="sortInput" id="sortInput-1" defaultChecked onChange={() => setSortType(SortType.NAME)}/>
-          <label htmlFor="sortInput-1">Имени</label>
-          <input type="radio" name="sortInput" id="sortInput-2" onChange={() => setSortType(SortType.BIRTHDAY)}/>
-          <label htmlFor="sortInput-2">Дате рождения</label>
-        </div>
-        <div className="controls__filters">
-          <p>Фильтровать по:</p>
-          <p>Должности</p>
-          <select>
-            <option>Повар</option>
-            <option>Официант</option>
-            <option>Водитель</option>
-          </select>
-          <input type="checkbox" id="archiveFilter"/>
-          <label htmlFor="archiveFilter">В архиве</label>
-        </div>
-      </section>
+      <Controls />
       <EmployeesList employeesData={employeesData} sortType={sortType} />
     </main>
     </>
   );
 }
 
-export default App;
+const mapStateToProps = (state: State) => ({
+  employeesData: state.employeesData,
+  sortType: state.sortType,
+})
+
+export default connect(mapStateToProps)(App);

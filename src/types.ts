@@ -6,3 +6,9 @@ export type EmployeesData = {
    phone: string
    birthday: string
 }
+
+export type State = {
+   employeesData: EmployeesData[]
+   sortType: string
+   filterType: string
+}

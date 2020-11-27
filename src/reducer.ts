@@ -1,18 +1,31 @@
 import {EmployeesData} from "./types";
+import {SortType, FilterType} from "./const";
 
 const initialState = {
-   employeesData: []
+   employeesData: [],
+   sortType: SortType.NAME,
+   filterType: FilterType.DEFAULT,
 }
 
 const ActionType = {
-   LOAD_EMPLOYEES: `LOAD_EMPLOYEES`
+   LOAD_EMPLOYEES: `LOAD_EMPLOYEES`,
+   CHANGE_SORT_TYPE: `CHANGE_SORT_TYPE`,
+   CHANGE_FILTER_TYPE: `CHANGE_FILTER_TYPE`,
 }
 
 const ActionCreator = {
    loadEmployees: (data: EmployeesData[]) => ({
       type: ActionType.LOAD_EMPLOYEES,
       payload: data,
-   })
+   }),
+   changeSortType: (type: string) => ({
+      type: ActionType.CHANGE_SORT_TYPE,
+      payload: type
+   }),
+   changeFilterType: (type: string) => ({
+      type: ActionType.CHANGE_FILTER_TYPE,
+      payload: type
+   }),
 }
 
 const reducer = (state = initialState, action: any) => {
@@ -21,6 +34,16 @@ const reducer = (state = initialState, action: any) => {
          return {
             ...state,
             employeesData: action.payload,
+         }
+      case ActionType.CHANGE_SORT_TYPE:
+         return {
+            ...state,
+            sortType: action.payload
+         }
+      case ActionType.CHANGE_FILTER_TYPE:
+         return {
+            ...state,
+            filterType: action.payload
          }
       default:
          return {...state}

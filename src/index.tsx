@@ -18,7 +18,7 @@ store.dispatch(ActionCreator.loadEmployees(employeesData))
 ReactDOM.render(
   <Provider store={store}>
   <React.StrictMode>
-    <App employeesData={employeesData} />
+    <App />
   </React.StrictMode>
   </Provider>,
   document.getElementById('root')
