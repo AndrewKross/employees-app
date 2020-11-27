@@ -1,27 +1,42 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {EmployeesData} from "../../types";
+import {SortType} from "../../const";
 
-const EmployeesList = () => {
+type Props = {
+  employeesData: EmployeesData[]
+  sortType: string
+}
+
+const EmployeesList: React.FunctionComponent<Props> = ({employeesData, sortType}: Props) => {
   return (
     <section className="employees-section">
         <table className="employees">
           <thead>
             <tr>
-              <td>Name</td>
-              <td>Role</td>
-              <td>Phone</td>
+              <td>Имя</td>
+              <td>Должность</td>
+              <td>Телефон</td>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className="employees__name">Ivan Petrov</td>
-              <td className="employees__role">Driver</td>
-              <td className="employees__phone">+79201040905</td>
-            </tr>
-            <tr>
-              <td className="employees__name">Andrew Kross</td>
-              <td className="employees__role">Programmesssssssssssssr</td>
-              <td className="employees__phone">+79201040905</td>
-            </tr>
+          {employeesData.sort((a, b) => {
+            switch (sortType) {
+              case SortType.NAME:
+                return a.name > b.name ? 1 : -1
+              case SortType.BIRTHDAY:
+                const dateA = a.birthday.split(`.`).reverse().join(`.`)
+                const dateB = b.birthday.split(`.`).reverse().join(`.`)
+                return Date.parse(dateA) > Date.parse(dateB) ? 1 : -1
+              default:
+                 return a.name > b.name ? 1 : -1
+            }
+          }).map((it) => (
+             <tr className="employees__field" key={it.id}>
+               <td className="employees__name">{it.name}</td>
+               <td className="employees__role">{it.role}</td>
+               <td className="employees__phone">{it.phone}</td>
+             </tr>
+          ))}
           </tbody>
         </table>
       </section>
