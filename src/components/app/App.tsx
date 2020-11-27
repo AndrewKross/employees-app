@@ -8,17 +8,18 @@ import './App.css';
 type Props = {
   employeesData: EmployeesData[]
   sortType: string
+  filterType: string
 }
 
-const App: React.FunctionComponent<Props> = ({employeesData, sortType}: Props) => {
+const App = ({employeesData, sortType, filterType}: Props) => {
   return (
     <>
     <header>
-      <h1>Employee App</h1>
+      <h1>Employees App</h1>
     </header>
     <main>
       <Controls />
-      <EmployeesList employeesData={employeesData} sortType={sortType} />
+      <EmployeesList employeesData={employeesData} sortType={sortType} filterType={filterType}/>
     </main>
     </>
   );
@@ -27,6 +28,7 @@ const App: React.FunctionComponent<Props> = ({employeesData, sortType}: Props) =
 const mapStateToProps = (state: State) => ({
   employeesData: state.employeesData,
   sortType: state.sortType,
+  filterType: state.filterType,
 })
 
 export default connect(mapStateToProps)(App);

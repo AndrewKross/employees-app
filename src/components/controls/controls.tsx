@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
-import {SortType} from "../../const";
+import {FilterType, SortType} from "../../const";
 import {State} from "../../types";
 import {ActionCreator} from "../../reducer";
 
@@ -25,10 +25,11 @@ const Controls = ({sortType, filterType, changeSortType, changeFilterType}: Prop
          <div className="controls__filters">
             <p>Фильтровать по:</p>
             <p>Должности</p>
-            <select>
-               <option>Повар</option>
-               <option>Официант</option>
-               <option>Водитель</option>
+            <select onChange={(evt) => changeFilterType(evt.target.value)}>
+               <option value={FilterType.NONE}>Все</option>
+               <option value={FilterType.COOK}>Повар</option>
+               <option value={FilterType.WAITER}>Официант</option>
+               <option value={FilterType.DRIVER}>Водитель</option>
             </select>
             <input type="checkbox" id="archiveFilter"/>
             <label htmlFor="archiveFilter">В архиве</label>

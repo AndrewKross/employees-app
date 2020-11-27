@@ -4,7 +4,7 @@ import {SortType, FilterType} from "./const";
 const initialState = {
    employeesData: [],
    sortType: SortType.NAME,
-   filterType: FilterType.DEFAULT,
+   filterType: FilterType.NONE,
 }
 
 const ActionType = {

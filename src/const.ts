@@ -4,5 +4,8 @@ export const SortType = {
 }
 
 export const FilterType = {
-   DEFAULT: `default`
+   NONE: `none`,
+   COOK: `cook`,
+   DRIVER: `driver`,
+   WAITER: `waiter`,
 }
