@@ -5,12 +5,14 @@ const initialState = {
    employeesData: [],
    sortType: SortType.NAME,
    filterType: FilterType.NONE,
+   isArchiveFilter: false,
 }
 
 const ActionType = {
    LOAD_EMPLOYEES: `LOAD_EMPLOYEES`,
    CHANGE_SORT_TYPE: `CHANGE_SORT_TYPE`,
    CHANGE_FILTER_TYPE: `CHANGE_FILTER_TYPE`,
+   CHANGE_IS_ARCHIVE_FILTER: `CHANGE_IS_ARCHIVE_FILTER`,
 }
 
 const ActionCreator = {
@@ -20,11 +22,15 @@ const ActionCreator = {
    }),
    changeSortType: (type: string) => ({
       type: ActionType.CHANGE_SORT_TYPE,
-      payload: type
+      payload: type,
    }),
    changeFilterType: (type: string) => ({
       type: ActionType.CHANGE_FILTER_TYPE,
-      payload: type
+      payload: type,
+   }),
+   changeIsArchiveFilter: (isChecked: boolean) => ({
+      type: ActionType.CHANGE_IS_ARCHIVE_FILTER,
+      payload: isChecked,
    }),
 }
 
@@ -44,6 +50,11 @@ const reducer = (state = initialState, action: any) => {
          return {
             ...state,
             filterType: action.payload
+         }
+      case ActionType.CHANGE_IS_ARCHIVE_FILTER:
+         return {
+            ...state,
+            isArchiveFilter: action.payload,
          }
       default:
          return {...state}

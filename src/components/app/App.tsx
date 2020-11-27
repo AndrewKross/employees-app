@@ -1,17 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import EmployeesList from '../employees-list/employees-list';
 import Controls from '../controls/controls'
-import {EmployeesData, State} from "../../types";
 import './App.css';
 
-type Props = {
-  employeesData: EmployeesData[]
-  sortType: string
-  filterType: string
-}
-
-const App = ({employeesData, sortType, filterType}: Props) => {
+const App = () => {
   return (
     <>
     <header>
@@ -19,16 +11,10 @@ const App = ({employeesData, sortType, filterType}: Props) => {
     </header>
     <main>
       <Controls />
-      <EmployeesList employeesData={employeesData} sortType={sortType} filterType={filterType}/>
+      <EmployeesList />
     </main>
     </>
   );
 }
 
-const mapStateToProps = (state: State) => ({
-  employeesData: state.employeesData,
-  sortType: state.sortType,
-  filterType: state.filterType,
-})
-
-export default connect(mapStateToProps)(App);
+export default App;

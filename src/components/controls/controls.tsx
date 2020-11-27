@@ -9,15 +9,18 @@ type Props = {
    filterType: string
    changeSortType: (sortType: string) => void
    changeFilterType: (filterType: string) => void
+   changeIsArchiveFilter: (isChecked: boolean) => void
 }
 
-const Controls = ({sortType, filterType, changeSortType, changeFilterType}: Props) => {
+const Controls = ({sortType, filterType, changeSortType, changeFilterType, changeIsArchiveFilter}: Props) => {
    return (
       <section className="controls">
          <h2>Controls</h2>
          <div className="controls__sorting">
             <p>Сортировать по:</p>
-            <input type="radio" name="sortInput" id="sortInput-1" defaultChecked onChange={() => changeSortType(SortType.NAME)}/>
+            <input type="radio" name="sortInput" id="sortInput-1" defaultChecked onChange={
+               () => changeSortType(SortType.NAME)
+            }/>
             <label htmlFor="sortInput-1">Имени</label>
             <input type="radio" name="sortInput" id="sortInput-2" onChange={() => changeSortType(SortType.BIRTHDAY)}/>
             <label htmlFor="sortInput-2">Дате рождения</label>
@@ -31,7 +34,9 @@ const Controls = ({sortType, filterType, changeSortType, changeFilterType}: Prop
                <option value={FilterType.WAITER}>Официант</option>
                <option value={FilterType.DRIVER}>Водитель</option>
             </select>
-            <input type="checkbox" id="archiveFilter"/>
+            <input type="checkbox" id="archiveFilter" onChange={
+               (evt) => changeIsArchiveFilter(evt.target.checked)
+            }/>
             <label htmlFor="archiveFilter">В архиве</label>
          </div>
       </section>
@@ -49,7 +54,10 @@ const mapDispatchToProps = (dispatch: any) => ({
    },
    changeFilterType(filterType: string) {
       dispatch(ActionCreator.changeFilterType(filterType))
-   }
+   },
+   changeIsArchiveFilter(isChecked: boolean) {
+      dispatch(ActionCreator.changeIsArchiveFilter(isChecked))
+   },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Controls)

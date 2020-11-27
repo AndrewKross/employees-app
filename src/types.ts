@@ -11,4 +11,5 @@ export type State = {
    employeesData: EmployeesData[]
    sortType: string
    filterType: string
+   isArchiveFilter: boolean
 }

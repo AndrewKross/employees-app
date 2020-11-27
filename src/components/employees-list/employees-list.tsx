@@ -1,14 +1,16 @@
 import React from 'react';
-import {EmployeesData} from "../../types";
+import { connect } from 'react-redux';
+import {EmployeesData, State} from "../../types";
 import {FilterType, SortType} from "../../const";
 
 type Props = {
   employeesData: EmployeesData[]
   sortType: string
   filterType: string
+  isArchiveFilter: boolean
 }
 
-const EmployeesList = ({employeesData, sortType, filterType}: Props) => {
+const EmployeesList = ({employeesData, sortType, filterType, isArchiveFilter}: Props) => {
   let filteredEmployeesData = [...employeesData]
 
   if (filterType !== FilterType.NONE) {
@@ -24,6 +26,10 @@ const EmployeesList = ({employeesData, sortType, filterType}: Props) => {
           return true
       }
     })
+  }
+
+  if (isArchiveFilter) {
+    filteredEmployeesData = filteredEmployeesData.filter((it) => it.isArchive)
   }
 
   filteredEmployeesData.sort((a, b) => {
@@ -63,4 +69,11 @@ const EmployeesList = ({employeesData, sortType, filterType}: Props) => {
   )
 }
 
-export default EmployeesList
+const mapStateToProps = (state: State) => ({
+  employeesData: state.employeesData,
+  sortType: state.sortType,
+  filterType: state.filterType,
+  isArchiveFilter: state.isArchiveFilter,
+})
+
+export default connect(mapStateToProps)(EmployeesList)
