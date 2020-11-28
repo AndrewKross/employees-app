@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import { connect } from "react-redux";
-import {withRouter} from 'react-router-dom'
 import {EmployeeData, State} from "../../types";
-import {FilterType} from "../../const";
+import {AppRoute, FilterType} from "../../const";
 import {ActionCreator} from "../../reducer";
+import {Link} from "react-router-dom";
 
 type Props = {
    employeeId: string
@@ -28,7 +28,6 @@ const EmployeePage = ({employeeId, employeesData, saveEmployee, history}: Props)
 
       if (employeeId !== `new`) {
          const employeeIndex = employeesData.findIndex((it) => it.id === +employeeId)
-         console.log(employeeIndex)
          newEmployeesData[employeeIndex] = employeeData
       } else {
          newEmployeesData.push(employeeData)
@@ -46,7 +45,7 @@ const EmployeePage = ({employeeId, employeesData, saveEmployee, history}: Props)
 
    const [employeeData, setEmployeeData] = useState(selectedEmployee)
 
-   return (
+   return selectedEmployee ? (
    <>
    <header>
       <h1>Карточка сотрудника</h1>
@@ -77,6 +76,11 @@ const EmployeePage = ({employeeId, employeesData, saveEmployee, history}: Props)
       </form>
    </section>
    </>
+   ) : (
+      <div>
+         <h1>Ошибка! Такого сотрудника нет в базе.</h1>
+         <Link to={AppRoute.MAIN}>Вернуться на главную</Link>
+      </div>
    )}
 
 const mapStateToProps = (state: State) => ({
@@ -89,5 +93,4 @@ const mapDispatchToProps = (dispatch: any) => ({
    }
 })
 
-// @ts-ignore
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EmployeePage))
+export default connect(mapStateToProps, mapDispatchToProps)(EmployeePage)
