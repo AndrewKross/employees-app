@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {EmployeesData, State} from "../../types";
+import {EmployeeData, State} from "../../types";
 import {AppRoute, FilterType, SortType} from "../../const";
 import { withRouter } from 'react-router-dom';
 
 type Props = {
-  employeesData: EmployeesData[]
+  employeesData: EmployeeData[]
   sortType: string
   filterType: string
   isArchiveFilter: boolean
@@ -13,10 +13,10 @@ type Props = {
 }
 
 const EmployeesList = ({employeesData, sortType, filterType, isArchiveFilter, history}: Props) => {
-  let filteredEmployeesData = [...employeesData]
+  let filteredEmployeeData = [...employeesData]
 
   if (filterType !== FilterType.NONE) {
-    filteredEmployeesData = filteredEmployeesData.filter((it) => {
+    filteredEmployeeData = filteredEmployeeData.filter((it) => {
       switch (filterType) {
         case FilterType.DRIVER:
           return it.role === FilterType.DRIVER
@@ -31,10 +31,10 @@ const EmployeesList = ({employeesData, sortType, filterType, isArchiveFilter, hi
   }
 
   if (isArchiveFilter) {
-    filteredEmployeesData = filteredEmployeesData.filter((it) => it.isArchive)
+    filteredEmployeeData = filteredEmployeeData.filter((it) => it.isArchive)
   }
 
-  filteredEmployeesData.sort((a, b) => {
+  filteredEmployeeData.sort((a, b) => {
     switch (sortType) {
       case SortType.NAME:
         return a.name > b.name ? 1 : -1
@@ -58,8 +58,8 @@ const EmployeesList = ({employeesData, sortType, filterType, isArchiveFilter, hi
             </tr>
           </thead>
           <tbody>
-          {filteredEmployeesData.map((it) => (
-             <tr className="employees__field" key={it.id}
+          {filteredEmployeeData.map((it) => (
+             <tr className="employees__field" key={it.id + Math.random()}
                  onClick={() => history.push(`${AppRoute.EMPLOYEE_PAGE + it.id}`)}>
                <td className="employees__name">{it.name}</td>
                <td className="employees__role">{it.role}</td>

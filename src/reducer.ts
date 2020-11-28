@@ -1,5 +1,10 @@
-import {EmployeesData} from "./types";
+import {EmployeeData} from "./types";
 import {SortType, FilterType} from "./const";
+
+type Action = {
+   type: string
+   payload?: any
+}
 
 const initialState = {
    employeesData: [],
@@ -16,7 +21,7 @@ const ActionType = {
 }
 
 const ActionCreator = {
-   loadEmployees: (data: EmployeesData[]) => ({
+   loadEmployees: (data: EmployeeData[]) => ({
       type: ActionType.LOAD_EMPLOYEES,
       payload: data,
    }),
@@ -34,7 +39,7 @@ const ActionCreator = {
    }),
 }
 
-const reducer = (state = initialState, action: any) => {
+const reducer = (state = initialState, action: Action) => {
    switch (action.type) {
       case ActionType.LOAD_EMPLOYEES:
          return {

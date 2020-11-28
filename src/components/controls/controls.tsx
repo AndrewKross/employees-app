@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from 'react-redux';
-import {FilterType, SortType} from "../../const";
+import {withRouter} from 'react-router-dom'
+import {AppRoute, FilterType, SortType} from "../../const";
 import {State} from "../../types";
 import {ActionCreator} from "../../reducer";
 
@@ -10,9 +11,10 @@ type Props = {
    changeSortType: (sortType: string) => void
    changeFilterType: (filterType: string) => void
    changeIsArchiveFilter: (isChecked: boolean) => void
+   history: any
 }
 
-const Controls = ({sortType, filterType, changeSortType, changeFilterType, changeIsArchiveFilter}: Props) => {
+const Controls = ({sortType, filterType, changeSortType, changeFilterType, changeIsArchiveFilter, history}: Props) => {
    return (
       <section className="controls">
          <h2>Controls</h2>
@@ -39,6 +41,9 @@ const Controls = ({sortType, filterType, changeSortType, changeFilterType, chang
             }/>
             <label htmlFor="archiveFilter">В архиве</label>
          </div>
+         <button className="add-new-btn"
+                 onClick={() => history.push(`${AppRoute.EMPLOYEE_PAGE}new`)}>
+            Добавить нового сотрудника</button>
       </section>
    )
 }
@@ -60,4 +65,4 @@ const mapDispatchToProps = (dispatch: any) => ({
    },
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Controls)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Controls))

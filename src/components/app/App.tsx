@@ -12,7 +12,8 @@ const App = () => {
         <Route exact path={AppRoute.MAIN} component={MainPage}/>
         <Route exact path={`${AppRoute.EMPLOYEE_PAGE}:id`}
                 render={({ match }) => {
-                  return <EmployeePage id={match.params.id} />
+                  // @ts-ignore
+                   return <EmployeePage employeeId={match.params.id} />
                 }}/>
       </Switch>
     </BrowserRouter>

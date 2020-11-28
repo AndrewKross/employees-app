@@ -1,4 +1,4 @@
-export type EmployeesData = {
+export type EmployeeData = {
    id: number
    name: string
    isArchive: boolean
@@ -8,7 +8,7 @@ export type EmployeesData = {
 }
 
 export type State = {
-   employeesData: EmployeesData[]
+   employeesData: EmployeeData[]
    sortType: string
    filterType: string
    isArchiveFilter: boolean
