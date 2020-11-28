@@ -9,3 +9,8 @@ export const FilterType = {
    DRIVER: `driver`,
    WAITER: `waiter`,
 }
+
+export const AppRoute = {
+   MAIN: `/`,
+   EMPLOYEE_PAGE: `/employee/`,
+}

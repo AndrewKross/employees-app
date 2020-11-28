@@ -1,16 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {EmployeesData, State} from "../../types";
-import {FilterType, SortType} from "../../const";
+import {AppRoute, FilterType, SortType} from "../../const";
+import { withRouter } from 'react-router-dom';
 
 type Props = {
   employeesData: EmployeesData[]
   sortType: string
   filterType: string
   isArchiveFilter: boolean
+  history: any
 }
 
-const EmployeesList = ({employeesData, sortType, filterType, isArchiveFilter}: Props) => {
+const EmployeesList = ({employeesData, sortType, filterType, isArchiveFilter, history}: Props) => {
   let filteredEmployeesData = [...employeesData]
 
   if (filterType !== FilterType.NONE) {
@@ -57,7 +59,8 @@ const EmployeesList = ({employeesData, sortType, filterType, isArchiveFilter}: P
           </thead>
           <tbody>
           {filteredEmployeesData.map((it) => (
-             <tr className="employees__field" key={it.id}>
+             <tr className="employees__field" key={it.id}
+                 onClick={() => history.push(`${AppRoute.EMPLOYEE_PAGE + it.id}`)}>
                <td className="employees__name">{it.name}</td>
                <td className="employees__role">{it.role}</td>
                <td className="employees__phone">{it.phone}</td>
@@ -76,4 +79,4 @@ const mapStateToProps = (state: State) => ({
   isArchiveFilter: state.isArchiveFilter,
 })
 
-export default connect(mapStateToProps)(EmployeesList)
+export default withRouter(connect(mapStateToProps)(EmployeesList))

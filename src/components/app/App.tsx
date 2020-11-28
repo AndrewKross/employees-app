@@ -1,19 +1,21 @@
 import React from 'react';
-import EmployeesList from '../employees-list/employees-list';
-import Controls from '../controls/controls'
+import {BrowserRouter, Switch, Route} from 'react-router-dom'
+import {AppRoute} from '../../const'
 import './App.css';
+import MainPage from "../main-page/main-page";
+import EmployeePage from "../employee-page/employee-page";
 
 const App = () => {
   return (
-    <>
-    <header>
-      <h1>Employees App</h1>
-    </header>
-    <main>
-      <Controls />
-      <EmployeesList />
-    </main>
-    </>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path={AppRoute.MAIN} component={MainPage}/>
+        <Route exact path={`${AppRoute.EMPLOYEE_PAGE}:id`}
+                render={({ match }) => {
+                  return <EmployeePage id={match.params.id} />
+                }}/>
+      </Switch>
+    </BrowserRouter>
   );
 }
 
