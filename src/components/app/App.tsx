@@ -1,6 +1,6 @@
 import React from 'react';
-import {BrowserRouter, Switch, Route, Link} from 'react-router-dom'
-import {AppRoute} from '../../const'
+import { BrowserRouter, Link, Route, Switch } from 'react-router-dom'
+import { AppRoute } from '../../const'
 import './App.css';
 import MainPage from "../main-page/main-page";
 import EmployeePage from "../employee-page/employee-page";
@@ -11,16 +11,16 @@ const App = () => {
       <Switch>
         <Route exact path={AppRoute.MAIN} component={MainPage}/>
         <Route exact path={`${AppRoute.EMPLOYEE_PAGE}:id`}
-                render={({ match, history }) => {
-                   return <EmployeePage employeeId={match.params.id} history={history}/>
-                }}/>
-         <Route render={() => (
-               <React.Fragment>
-                  <h1>Ошибка: 404. Страница не найдена.</h1>
-                  <Link to={AppRoute.MAIN}>Вернуться на главную</Link>
-               </React.Fragment>
-            )}
-         />
+               render={({ match, history }) => {
+                 return <EmployeePage employeeId={match.params.id} history={history}/>
+               }}/>
+        <Route render={() => (
+          <React.Fragment>
+            <h1>Ошибка: 404. Страница не найдена.</h1>
+            <Link to={AppRoute.MAIN}>Вернуться на главную</Link>
+          </React.Fragment>
+        )}
+        />
       </Switch>
     </BrowserRouter>
   );

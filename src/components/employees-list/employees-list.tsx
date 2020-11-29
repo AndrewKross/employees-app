@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {EmployeeData, State} from "../../types";
-import {AppRoute, FilterType, SortType} from "../../const";
+import { EmployeeData, State } from "../../types";
+import { AppRoute, FilterType, SortType } from "../../const";
 import { withRouter } from 'react-router-dom';
 
 type Props = {
@@ -12,7 +12,7 @@ type Props = {
   history: any
 }
 
-const EmployeesList = ({employeesData, sortType, filterType, isArchiveFilter, history}: Props) => {
+const EmployeesList = ({ employeesData, sortType, filterType, isArchiveFilter, history }: Props) => {
   let filteredEmployeeData = [...employeesData]
 
   if (filterType !== FilterType.NONE) {
@@ -49,26 +49,26 @@ const EmployeesList = ({employeesData, sortType, filterType, isArchiveFilter, hi
 
   return (
     <section className="employees-section">
-        <table className="employees">
-          <thead>
-            <tr>
-              <td>Имя</td>
-              <td>Должность</td>
-              <td>Телефон</td>
-            </tr>
-          </thead>
-          <tbody>
-          {filteredEmployeeData.map((it) => (
-             <tr className="employees__field" key={it.id + Math.random()}
-                 onClick={() => history.push(`${AppRoute.EMPLOYEE_PAGE + it.id}`)}>
-               <td className="employees__name">{it.name}</td>
-               <td className="employees__role">{it.role}</td>
-               <td className="employees__phone">{it.phone}</td>
-             </tr>
-          ))}
-          </tbody>
-        </table>
-      </section>
+      <table className="employees">
+        <thead>
+        <tr>
+          <td>Имя</td>
+          <td>Должность</td>
+          <td>Телефон</td>
+        </tr>
+        </thead>
+        <tbody>
+        {filteredEmployeeData.map((it) => (
+          <tr className="employees__field" key={it.id + Math.random()}
+              onClick={() => history.push(`${AppRoute.EMPLOYEE_PAGE + it.id}`)}>
+            <td className="employees__name">{it.name}</td>
+            <td className="employees__role">{it.role}</td>
+            <td className="employees__phone">{it.phone}</td>
+          </tr>
+        ))}
+        </tbody>
+      </table>
+    </section>
   )
 }
 
