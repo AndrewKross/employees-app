@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import MaskedInput from 'antd-mask-input'
-import 'antd/dist/antd.css';
 import moment from "moment";
 import {Input, Select, Checkbox, Button, DatePicker} from 'antd';
 import { EmployeeData, State } from "../../types";
 import { AppRoute, FilterType } from "../../const";
 import { ActionCreator } from "../../reducer";
 import { Link } from "react-router-dom";
+import "./employee-page.scss"
 
 const { Option } = Select
 const dateFormat = `DD.MM.YYYY`
@@ -55,33 +55,43 @@ const EmployeePage = ({ employeeId, employeesData, saveEmployee, history }: Prop
   return selectedEmployee ? (
     <>
       <header>
-        <h1>Карточка сотрудника</h1>
+        <h1 className="employee-card-header">Карточка сотрудника</h1>
       </header>
       <section className="employee-page">
         <form className="employee-form" onSubmit={formSubmitHandler}>
-          <label htmlFor="employee-name-input">Имя: </label>
-          <Input type="text" id="employee-name-input" value={employeeData.name} required maxLength={30}
-                 onChange={(evt) => setEmployeeData({ ...employeeData, name: evt.target.value })}/>
-          <label htmlFor="employee-phone-input">Телефон: </label>
-          <MaskedInput type="tel" id="employee-phone-input" value={employeeData.phone} required
-                       mask="+7 (111) 111-1111" pattern="^\+?\d\s(\()?\d{3}(\))?(-|\s)?\d{3}(-|\s)\d{4}$"
-                       onChange={(evt) => setEmployeeData({ ...employeeData, phone: evt.target.value })}/>
-          <label htmlFor="employee-birthday-input">Дата рождения: </label>
-          <DatePicker id="employee-birthday-input" defaultValue={moment(employeeData.birthday, dateFormat)} format={dateFormat}
-                       onChange={(evt) => {
-                         setEmployeeData({ ...employeeData, birthday: moment(evt).format(dateFormat) })
-                       }}/>
-          <label>Должность: </label>
-          <Select value={employeeData.role}
-                  onChange={(evt) => setEmployeeData({ ...employeeData, role: evt.valueOf() })}>
-            <Option value={FilterType.COOK}>Повар</Option>
-            <Option value={FilterType.WAITER}>Официант</Option>
-            <Option value={FilterType.DRIVER}>Водитель</Option>
-          </Select>
-          <label htmlFor="employee-archive-checkbox">В архиве? </label>
-          <Checkbox id="employee-archive-checkbox" checked={employeeData.isArchive}
-                 onChange={(evt) => setEmployeeData({ ...employeeData, isArchive: evt.target.checked })}/>
-          <Button type="primary" htmlType="submit">Сохранить</Button>
+          <div className="name-input-wrapper employee-form__wrapper">
+            <label className="name-input-label" htmlFor="employee-name-input">Имя: </label>
+            <Input className="name-input" type="text" id="employee-name-input" value={employeeData.name} required maxLength={30}
+                   onChange={(evt) => setEmployeeData({ ...employeeData, name: evt.target.value })}/>
+          </div>
+          <div className="phone-input-wrapper employee-form__wrapper">
+            <label className="phone-input-label" htmlFor="employee-phone-input">Телефон: </label>
+            <MaskedInput type="tel" id="employee-phone-input" value={employeeData.phone} required
+                         mask="+7 (111) 111-1111" pattern="^\+?\d\s(\()?\d{3}(\))?(-|\s)?\d{3}(-|\s)\d{4}$"
+                         onChange={(evt) => setEmployeeData({ ...employeeData, phone: evt.target.value })}/>
+          </div>
+          <div className="birthday-input-wrapper employee-form__wrapper">
+            <label htmlFor="employee-birthday-input">Дата рождения: </label>
+            <DatePicker id="employee-birthday-input" defaultValue={moment(employeeData.birthday, dateFormat)} format={dateFormat}
+                         onChange={(evt) => {
+                           setEmployeeData({ ...employeeData, birthday: moment(evt).format(dateFormat) })
+                         }}/>
+          </div>
+          <div className="role-input-wrapper employee-form__wrapper">
+            <label>Должность: </label>
+            <Select className="role-input" value={employeeData.role}
+                    onChange={(evt) => setEmployeeData({ ...employeeData, role: evt.valueOf() })}>
+              <Option value={FilterType.COOK}>Повар</Option>
+              <Option value={FilterType.WAITER}>Официант</Option>
+              <Option value={FilterType.DRIVER}>Водитель</Option>
+            </Select>
+          </div>
+          <div className="archive-input-wrapper employee-form__wrapper">
+            <label htmlFor="employee-archive-checkbox">В архиве? </label>
+            <Checkbox id="employee-archive-checkbox" checked={employeeData.isArchive}
+                   onChange={(evt) => setEmployeeData({ ...employeeData, isArchive: evt.target.checked })}/>
+          </div>
+          <Button className="form-submit-btn" type="primary" htmlType="submit">Сохранить</Button>
         </form>
       </section>
     </>

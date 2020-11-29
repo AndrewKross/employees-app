@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Link, Route, Switch } from 'react-router-dom'
 import { AppRoute } from '../../const'
 import './App.css';
+import 'antd/dist/antd.css';
 import MainPage from "../main-page/main-page";
 import EmployeePage from "../employee-page/employee-page";
 

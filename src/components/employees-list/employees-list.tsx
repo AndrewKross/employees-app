@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { EmployeeData, State } from "../../types";
 import { AppRoute, FilterType, SortType } from "../../const";
 import { withRouter } from 'react-router-dom';
+import { Table } from 'antd';
 
 type Props = {
   employeesData: EmployeeData[]
@@ -47,27 +48,30 @@ const EmployeesList = ({ employeesData, sortType, filterType, isArchiveFilter, h
     }
   })
 
+  const columns = [
+    {
+      title: `Имя`,
+      dataIndex: `name`,
+      key: `name`,
+    }, {
+      title: `Должность`,
+      dataIndex: `role`,
+      key: `role`,
+    }, {
+      title: `Телефон`,
+      dataIndex: `phone`,
+      key: `phone`,
+    },
+  ]
+
   return (
     <section className="employees-section">
-      <table className="employees">
-        <thead>
-        <tr>
-          <td>Имя</td>
-          <td>Должность</td>
-          <td>Телефон</td>
-        </tr>
-        </thead>
-        <tbody>
-        {filteredEmployeeData.map((it) => (
-          <tr className="employees__field" key={it.id + Math.random()}
-              onClick={() => history.push(`${AppRoute.EMPLOYEE_PAGE + it.id}`)}>
-            <td className="employees__name">{it.name}</td>
-            <td className="employees__role">{it.role}</td>
-            <td className="employees__phone">{it.phone}</td>
-          </tr>
-        ))}
-        </tbody>
-      </table>
+      <Table columns={columns} dataSource={filteredEmployeeData} style={{cursor: `pointer`}} tableLayout="fixed"
+             rowKey={(record) => record.id} onRow={(record) => {
+              return {
+                onClick: () => {history.push(`${AppRoute.EMPLOYEE_PAGE + record.id}`)},
+              };
+      }} />
     </section>
   )
 }
