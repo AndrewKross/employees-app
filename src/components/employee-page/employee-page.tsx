@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import MaskedInput from 'antd-mask-input'
 import moment from "moment";
-import {Input, Select, Checkbox, Button, DatePicker} from 'antd';
+import { Button, Checkbox, DatePicker, Input, Select } from 'antd';
 import { EmployeeData, State } from "../../types";
 import { AppRoute, dateFormat, FilterType } from "../../const";
 import { ActionCreator } from "../../reducer";
@@ -82,10 +82,11 @@ const EmployeePage = ({ employeeId, employeesData, saveEmployee, history }: Prop
             <label htmlFor="employee-birthday-input">Дата рождения: </label>
             <DatePicker id="employee-birthday-input" defaultValue={moment(employeeData.birthday, dateFormat)}
                         format={dateFormat} onChange={(evt) => {
-                           setEmployeeData({
-                             ...employeeData,
-                             birthday: moment(evt).format(dateFormat) })
-                         }}/>
+              setEmployeeData({
+                ...employeeData,
+                birthday: moment(evt).format(dateFormat)
+              })
+            }}/>
           </div>
           <div className="role-input-wrapper employee-form__wrapper">
             <label>Должность: </label>
@@ -99,10 +100,10 @@ const EmployeePage = ({ employeeId, employeesData, saveEmployee, history }: Prop
           <div className="archive-input-wrapper employee-form__wrapper">
             <label htmlFor="employee-archive-checkbox">В архиве? </label>
             <Checkbox id="employee-archive-checkbox" checked={employeeData.isArchive}
-                   onChange={(evt) => setEmployeeData({
-                     ...employeeData,
-                     isArchive: evt.target.checked
-                   })}/>
+                      onChange={(evt) => setEmployeeData({
+                        ...employeeData,
+                        isArchive: evt.target.checked
+                      })}/>
           </div>
           <Button className="employee-form__submit-btn" type="primary" htmlType="submit">Сохранить</Button>
           <Button className="employee-form__back-btn" type="primary" danger

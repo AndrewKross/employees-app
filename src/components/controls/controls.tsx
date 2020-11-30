@@ -6,7 +6,7 @@ import { ActionCreator } from "../../reducer";
 import { Button, Checkbox, Radio, Select } from "antd";
 import "./controls.scss"
 
-const {Option} = Select
+const { Option } = Select
 
 type Props = {
   changeSortType: (sortType: string) => void

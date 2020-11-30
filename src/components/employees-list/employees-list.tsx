@@ -66,12 +66,14 @@ const EmployeesList = ({ employeesData, sortType, filterType, isArchiveFilter, h
 
   return (
     <section className="employees-section">
-      <Table columns={columns} dataSource={filteredEmployeeData} style={{cursor: `pointer`}} tableLayout="fixed"
+      <Table columns={columns} dataSource={filteredEmployeeData} style={{ cursor: `pointer` }} tableLayout="fixed"
              rowKey={(record) => record.id} onRow={(record) => {
-              return {
-                onClick: () => {history.push(`${AppRoute.EMPLOYEE_PAGE + record.id}`)},
-              };
-      }} />
+        return {
+          onClick: () => {
+            history.push(`${AppRoute.EMPLOYEE_PAGE + record.id}`)
+          },
+        };
+      }}/>
     </section>
   )
 }
