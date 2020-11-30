@@ -5,7 +5,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { Provider } from 'react-redux';
 import { ActionCreator, reducer } from './reducer';
 import employeesData from './employees.json';
-import './index.css';
+import './index.scss';
 import App from './components/app/App';
 
 const store = createStore(

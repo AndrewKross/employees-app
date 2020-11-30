@@ -91,7 +91,9 @@ const EmployeePage = ({ employeeId, employeesData, saveEmployee, history }: Prop
             <Checkbox id="employee-archive-checkbox" checked={employeeData.isArchive}
                    onChange={(evt) => setEmployeeData({ ...employeeData, isArchive: evt.target.checked })}/>
           </div>
-          <Button className="form-submit-btn" type="primary" htmlType="submit">Сохранить</Button>
+          <Button className="employee-form__submit-btn" type="primary" htmlType="submit">Сохранить</Button>
+          <Button className="employee-form__back-btn" type="primary" danger
+                  onClick={() => history.push(AppRoute.MAIN)}>Вернуться назад без сохранения</Button>
         </form>
       </section>
     </>
