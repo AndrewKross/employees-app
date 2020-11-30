@@ -4,13 +4,12 @@ import MaskedInput from 'antd-mask-input'
 import moment from "moment";
 import {Input, Select, Checkbox, Button, DatePicker} from 'antd';
 import { EmployeeData, State } from "../../types";
-import { AppRoute, FilterType } from "../../const";
+import { AppRoute, dateFormat, FilterType } from "../../const";
 import { ActionCreator } from "../../reducer";
 import { Link } from "react-router-dom";
 import "./employee-page.scss"
 
 const { Option } = Select
-const dateFormat = `DD.MM.YYYY`
 
 type Props = {
   employeeId: string
@@ -22,7 +21,7 @@ type Props = {
 const EmployeePage = ({ employeeId, employeesData, saveEmployee, history }: Props) => {
   const newEmployee = {
     id: employeesData[employeesData.length - 1].id + 1,
-    name: `Name`,
+    name: ``,
     phone: `Phone`,
     birthday: `01.01.2000`,
     role: `driver`,
@@ -41,7 +40,9 @@ const EmployeePage = ({ employeeId, employeesData, saveEmployee, history }: Prop
     }
 
     saveEmployee(newEmployeesData)
-    history.goBack()
+    employeeId !== `new` ? console.log(`Сотрудник с id ${employeeId} успешно сохранен!`)
+      : console.log(`Новый сотрудник успешно сохранен в базу! Ему присвоен id ${newEmployee.id}`)
+    history.push(AppRoute.MAIN)
   }
 
   let selectedEmployee = newEmployee
@@ -61,20 +62,29 @@ const EmployeePage = ({ employeeId, employeesData, saveEmployee, history }: Prop
         <form className="employee-form" onSubmit={formSubmitHandler}>
           <div className="name-input-wrapper employee-form__wrapper">
             <label className="name-input-label" htmlFor="employee-name-input">Имя: </label>
-            <Input className="name-input" type="text" id="employee-name-input" value={employeeData.name} required maxLength={30}
-                   onChange={(evt) => setEmployeeData({ ...employeeData, name: evt.target.value })}/>
+            <Input className="name-input" type="text" id="employee-name-input" value={employeeData.name} required
+                   maxLength={30} placeholder="Введите имя сотрудника"
+                   onChange={(evt) => setEmployeeData({
+                     ...employeeData,
+                     name: evt.target.value
+                   })}/>
           </div>
           <div className="phone-input-wrapper employee-form__wrapper">
             <label className="phone-input-label" htmlFor="employee-phone-input">Телефон: </label>
             <MaskedInput type="tel" id="employee-phone-input" value={employeeData.phone} required
                          mask="+7 (111) 111-1111" pattern="^\+?\d\s(\()?\d{3}(\))?(-|\s)?\d{3}(-|\s)\d{4}$"
-                         onChange={(evt) => setEmployeeData({ ...employeeData, phone: evt.target.value })}/>
+                         onChange={(evt) => setEmployeeData({
+                           ...employeeData,
+                           phone: evt.target.value
+                         })}/>
           </div>
           <div className="birthday-input-wrapper employee-form__wrapper">
             <label htmlFor="employee-birthday-input">Дата рождения: </label>
-            <DatePicker id="employee-birthday-input" defaultValue={moment(employeeData.birthday, dateFormat)} format={dateFormat}
-                         onChange={(evt) => {
-                           setEmployeeData({ ...employeeData, birthday: moment(evt).format(dateFormat) })
+            <DatePicker id="employee-birthday-input" defaultValue={moment(employeeData.birthday, dateFormat)}
+                        format={dateFormat} onChange={(evt) => {
+                           setEmployeeData({
+                             ...employeeData,
+                             birthday: moment(evt).format(dateFormat) })
                          }}/>
           </div>
           <div className="role-input-wrapper employee-form__wrapper">
@@ -89,7 +99,10 @@ const EmployeePage = ({ employeeId, employeesData, saveEmployee, history }: Prop
           <div className="archive-input-wrapper employee-form__wrapper">
             <label htmlFor="employee-archive-checkbox">В архиве? </label>
             <Checkbox id="employee-archive-checkbox" checked={employeeData.isArchive}
-                   onChange={(evt) => setEmployeeData({ ...employeeData, isArchive: evt.target.checked })}/>
+                   onChange={(evt) => setEmployeeData({
+                     ...employeeData,
+                     isArchive: evt.target.checked
+                   })}/>
           </div>
           <Button className="employee-form__submit-btn" type="primary" htmlType="submit">Сохранить</Button>
           <Button className="employee-form__back-btn" type="primary" danger
@@ -99,6 +112,7 @@ const EmployeePage = ({ employeeId, employeesData, saveEmployee, history }: Prop
     </>
   ) : (
     <div>
+      {console.error(`Выполнен переход на страницу несуществующего сотрудника (такого id нет в базе)`)}
       <h1>Ошибка! Такого сотрудника нет в базе.</h1>
       <Link to={AppRoute.MAIN}>Вернуться на главную</Link>
     </div>

@@ -40,7 +40,10 @@ const Controls = ({ changeSortType, changeFilterType, changeIsArchiveFilter, his
         }/>
       </div>
       <Button className="add-new-btn"
-              onClick={() => history.push(`${AppRoute.EMPLOYEE_PAGE}new`)}>
+              onClick={() => {
+                history.push(`${AppRoute.EMPLOYEE_PAGE}new`)
+                console.log(`Выполнен переход на страницу создания новой карточки сотрудника`)
+              }}>
         Добавить нового сотрудника
       </Button>
     </section>
@@ -50,12 +53,15 @@ const Controls = ({ changeSortType, changeFilterType, changeIsArchiveFilter, his
 const mapDispatchToProps = (dispatch: any) => ({
   changeSortType(sortType: string) {
     dispatch(ActionCreator.changeSortType(sortType))
+    console.log(`Выбрана сортировка по ${sortType}`)
   },
   changeFilterType(filterType: string) {
     dispatch(ActionCreator.changeFilterType(filterType))
+    console.log(`Выбрана фильтрация по ${filterType}`)
   },
   changeIsArchiveFilter(isChecked: boolean) {
     dispatch(ActionCreator.changeIsArchiveFilter(isChecked))
+    console.log(`Фильтрация "в архиве" изменена на ${isChecked}`)
   },
 })
 

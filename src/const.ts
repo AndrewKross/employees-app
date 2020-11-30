@@ -14,3 +14,5 @@ export const AppRoute = {
   MAIN: `/`,
   EMPLOYEE_PAGE: `/employee/`,
 }
+
+export const dateFormat = `DD.MM.YYYY`

@@ -14,6 +14,7 @@ const store = createStore(
 );
 
 store.dispatch(ActionCreator.loadEmployees(employeesData))
+console.log(`Данные загружены в базу`)
 
 ReactDOM.render(
   <Provider store={store}>
@@ -23,3 +24,5 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
+
+console.log(`Приложение запущено`)
