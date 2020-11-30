@@ -5,6 +5,7 @@ import { AppRoute, FilterType, SortType } from "../../const";
 import { ActionCreator } from "../../reducer";
 import { Button, Checkbox, Radio, Select } from "antd";
 import "./controls.scss"
+import { State } from "../../types";
 
 const { Option } = Select
 
@@ -13,21 +14,24 @@ type Props = {
   changeFilterType: (filterType: string) => void
   changeIsArchiveFilter: (isChecked: boolean) => void
   history: any
+  filterType: string
+  sortType: string
+  isArchiveFilter: boolean
 }
 
-const Controls = ({ changeSortType, changeFilterType, changeIsArchiveFilter, history }: Props) => {
+const Controls = ({ filterType, sortType, isArchiveFilter, changeSortType, changeFilterType, changeIsArchiveFilter, history }: Props) => {
   return (
     <section className="controls">
       <div className="controls__sorting">
         <p className="controls__sorting__label">Сортировать по:</p>
-        <Radio.Group onChange={(evt) => changeSortType(evt.target.value)} defaultValue={SortType.NAME}>
+        <Radio.Group onChange={(evt) => changeSortType(evt.target.value)} defaultValue={sortType}>
           <Radio value={SortType.NAME}>Имени</Radio>
           <Radio value={SortType.BIRTHDAY}>Дате рождения</Radio>
         </Radio.Group>
       </div>
       <div className="controls__filters">
         <p>Фильтры: </p>
-        <Select className="role-filter" defaultValue={FilterType.NONE}
+        <Select className="role-filter" defaultValue={filterType}
                 onChange={(evt) => changeFilterType(evt.valueOf().toString())}>
           <Option value={FilterType.NONE}>Все</Option>
           <Option value={FilterType.COOK}>Повар</Option>
@@ -35,7 +39,7 @@ const Controls = ({ changeSortType, changeFilterType, changeIsArchiveFilter, his
           <Option value={FilterType.DRIVER}>Водитель</Option>
         </Select>
         <label htmlFor="archiveFilter">В архиве: </label>
-        <Checkbox type="checkbox" id="archiveFilter" onChange={
+        <Checkbox type="checkbox" id="archiveFilter" defaultChecked={isArchiveFilter} onChange={
           (evt) => changeIsArchiveFilter(evt.target.checked)
         }/>
       </div>
@@ -49,6 +53,12 @@ const Controls = ({ changeSortType, changeFilterType, changeIsArchiveFilter, his
     </section>
   )
 }
+
+const mapStateToProps = (state: State) => ({
+  filterType: state.filterType,
+  sortType: state.sortType,
+  isArchiveFilter: state.isArchiveFilter,
+})
 
 const mapDispatchToProps = (dispatch: any) => ({
   changeSortType(sortType: string) {
@@ -65,4 +75,4 @@ const mapDispatchToProps = (dispatch: any) => ({
   },
 })
 
-export default withRouter(connect(null, mapDispatchToProps)(Controls))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Controls))
