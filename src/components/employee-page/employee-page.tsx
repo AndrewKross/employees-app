@@ -16,41 +16,40 @@ const { Option } = Select
 type Props = {
   employeeId: string
   employeesData: EmployeeData[]
-  saveEmployee: (data: EmployeeData[]) => void
+  editEmployee: (data: EmployeeData) => void
+  addNewEmployee: (data: EmployeeData) => void
   history: any
 }
 
-const EmployeePage = ({ employeeId, employeesData, saveEmployee, history }: Props) => {
-  const newEmployee = {
+const EmployeePage = ({ employeeId, addNewEmployee, employeesData, editEmployee, history }: Props) => {
+  const newEmployee: EmployeeData = {
     id: employeesData[employeesData.length - 1].id + 1,
     name: '',
-    phone: 'Phone',
-    birthday: '01.01.2000',
-    role: 'driver',
+    phone: '',
+    birthday: '',
+    role: '',
     isArchive: false,
   }
 
   const formSubmitHandler = (evt: any) => {
     evt.preventDefault()
-    const newEmployeesData = [...employeesData]
 
-    if (employeeId !== 'new') {
-      const employeeIndex = employeesData.findIndex((it) => it.id === +employeeId)
-      newEmployeesData[employeeIndex] = employeeData
+    if (employeeId === 'new') {
+      addNewEmployee(employeeData)
+      console.log(`Сотрудник с id ${employeeId} успешно сохранен!`)
     } else {
-      newEmployeesData.push(employeeData)
+      editEmployee(employeeData)
+      console.log(`Новый сотрудник успешно сохранен в базу! Ему присвоен id ${newEmployee.id}`)
     }
 
-    saveEmployee(newEmployeesData)
-    employeeId !== `new` ? console.log(`Сотрудник с id ${employeeId} успешно сохранен!`)
-      : console.log(`Новый сотрудник успешно сохранен в базу! Ему присвоен id ${newEmployee.id}`)
     history.push(AppRoute.MAIN)
   }
 
   let selectedEmployee = newEmployee
-
+  let employeeInBase: EmployeeData | null = newEmployee
   if (employeeId !== 'new') {
-    selectedEmployee = employeesData.find((data) => data.id === +employeeId)!
+    employeeInBase = employeesData.find((data) => data.id === +employeeId) || null
+    selectedEmployee = employeeInBase || newEmployee
   }
 
   const [employeeData, setEmployeeData] = useState(selectedEmployee)
@@ -88,7 +87,7 @@ const EmployeePage = ({ employeeId, employeesData, saveEmployee, history }: Prop
     },
   }
 
-  return selectedEmployee ? (
+  return employeeInBase ? (
     <>
       <header>
         <h1 className="employee-card-header">Карточка сотрудника</h1>
@@ -109,12 +108,12 @@ const EmployeePage = ({ employeeId, employeesData, saveEmployee, history }: Prop
           <div className="birthday-input-wrapper employee-form__wrapper">
             <label htmlFor="employee-birthday-input">Дата рождения: </label>
             <MaskedInput type="text" id="employee-birthday-input" defaultValue={employeeData.birthday}
-                         mask="11.11.1111" placeholder="ДД.ММ.ГГГГ" pattern="\d{2}\.\d{2}\.\d{4}"
+                         mask="11.11.1111" placeholder="ДД.ММ.ГГГГ" pattern="\d{2}\.\d{2}\.\d{4}" required
                          onChange={EmployeeHandlers.birthdayChangeHandler}/>
           </div>
           <div className="role-input-wrapper employee-form__wrapper">
             <label>Должность: </label>
-            <Select className="role-input" value={employeeData.role}
+            <Select className="role-input" defaultValue={employeeData.role}
                     onChange={EmployeeHandlers.roleChangeHandler}>
               <Option value={FilterType.COOK}>Повар</Option>
               <Option value={FilterType.WAITER}>Официант</Option>
@@ -146,9 +145,12 @@ const mapStateToProps = (state: State) => ({
 })
 
 const mapDispatchToProps = (dispatch: any) => ({
-  saveEmployee(data: EmployeeData[]) {
-    dispatch(ActionCreator.loadEmployees(data))
-  }
+  editEmployee(data: EmployeeData) {
+    dispatch(ActionCreator.editEmployee(data))
+  },
+  addNewEmployee(data: EmployeeData) {
+    dispatch(ActionCreator.addNewEmployee(data))
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EmployeePage)

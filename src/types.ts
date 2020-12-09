@@ -41,5 +41,15 @@ interface changeIsArchiveFilterAction {
   payload: boolean,
 }
 
-export type ActionTypes = loadEmployeesAction | changeSortTypeAction |
-  changeFilterTypeAction | changeIsArchiveFilterAction
+interface editEmployeeAction {
+  type: typeof ActionType.EDIT_EMPLOYEE,
+  payload: EmployeeData,
+}
+
+interface addNewEmployeeAction {
+  type: typeof ActionType.ADD_NEW_EMPLOYEE,
+  payload: EmployeeData,
+}
+
+export type ActionTypes = loadEmployeesAction | changeSortTypeAction | changeFilterTypeAction |
+  changeIsArchiveFilterAction | editEmployeeAction | addNewEmployeeAction
