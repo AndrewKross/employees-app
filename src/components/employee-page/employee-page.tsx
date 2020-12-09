@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
+import React, { useState } from "react"
+import { connect } from "react-redux"
 import MaskedInput from 'antd-mask-input'
-import { Button, Checkbox, Input, Select } from 'antd';
-import { EmployeeData, State } from "../../types";
-import { AppRoute, FilterType } from "../../const";
-import { ActionCreator } from "../../reducer/reducer";
-import { Link } from "react-router-dom";
+import { Button, Checkbox, Input, Select } from 'antd'
+import { EmployeeData, State } from "../../types"
+import { AppRoute, FilterType } from "../../const"
+import { ActionCreator } from "../../reducer/reducer"
+import { Link } from "react-router-dom"
 import "./employee-page.scss"
-import { getEmployeesData } from "../../reducer/selectors";
-import { SelectValue } from "antd/es/select";
-import { CheckboxChangeEvent } from "antd/es/checkbox";
+import { getEmployeesData } from "../../reducer/selectors"
+import { SelectValue } from "antd/es/select"
+import { CheckboxChangeEvent } from "antd/es/checkbox"
 
 const { Option } = Select
 
@@ -27,7 +27,7 @@ const EmployeePage = ({ employeeId, addNewEmployee, employeesData, editEmployee,
     name: '',
     phone: '',
     birthday: '',
-    role: '',
+    role: FilterType.DRIVER,
     isArchive: false,
   }
 
@@ -58,7 +58,7 @@ const EmployeePage = ({ employeeId, addNewEmployee, employeesData, editEmployee,
     nameChangeHandler(evt: React.ChangeEvent<HTMLInputElement>) {
       setEmployeeData({
         ...employeeData,
-        name: evt.target.value
+        name: evt.target.value,
       })
     },
     phoneChangeHandler(evt: React.ChangeEvent<HTMLInputElement>) {
@@ -82,7 +82,7 @@ const EmployeePage = ({ employeeId, addNewEmployee, employeesData, editEmployee,
     isArchiveChangeHandler(evt: CheckboxChangeEvent) {
       setEmployeeData({
         ...employeeData,
-        isArchive: evt.target.checked
+        isArchive: evt.target.checked,
       })
     },
   }
@@ -141,7 +141,7 @@ const EmployeePage = ({ employeeId, addNewEmployee, employeesData, editEmployee,
 }
 
 const mapStateToProps = (state: State) => ({
-  employeesData: getEmployeesData(state)
+  employeesData: getEmployeesData(state),
 })
 
 const mapDispatchToProps = (dispatch: any) => ({
