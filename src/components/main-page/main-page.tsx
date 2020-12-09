@@ -1,6 +1,6 @@
-import React from "react";
-import Controls from "../controls/controls";
-import EmployeesList from "../employees-list/employees-list";
+import React from "react"
+import Controls from "../controls/controls"
+import EmployeesList from "../employees-list/employees-list"
 import "./main-page.scss"
 
 const MainPage = () => (

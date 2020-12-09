@@ -1,12 +1,12 @@
-import React from "react";
-import { connect } from 'react-redux';
+import React from "react"
+import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { AppRoute, FilterType, SortType } from "../../const";
-import { ActionCreator } from "../../reducer/reducer";
-import { Button, Checkbox, Radio, Select } from "antd";
+import { AppRoute, FilterType, SortType } from "../../const"
+import { ActionCreator } from "../../reducer/reducer"
+import { Button, Checkbox, Radio, Select } from "antd"
 import "./controls.scss"
-import { State } from "../../types";
-import { getFilterType, getIsArchiveFilter, getSortType } from "../../reducer/selectors";
+import { State } from "../../types"
+import { getFilterType, getIsArchiveFilter, getSortType } from "../../reducer/selectors"
 
 const { Option } = Select
 

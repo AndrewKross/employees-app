@@ -1,9 +1,9 @@
-import React from 'react';
+import React from 'react'
 import { BrowserRouter, Link, Route, Switch } from 'react-router-dom'
 import { AppRoute } from '../../const'
-import 'antd/dist/antd.css';
-import MainPage from "../main-page/main-page";
-import EmployeePage from "../employee-page/employee-page";
+import 'antd/dist/antd.css'
+import MainPage from "../main-page/main-page"
+import EmployeePage from "../employee-page/employee-page"
 
 const App = () => {
   return (
@@ -25,7 +25,7 @@ const App = () => {
         />
       </Switch>
     </BrowserRouter>
-  );
+  )
 }
 
-export default App;
+export default App

@@ -1,6 +1,6 @@
-import { createSelector } from 'reselect';
-import { filterEmployeesData, sortEmployeesData } from '../utils';
-import { State } from "../types";
+import { createSelector } from 'reselect'
+import { filterEmployeesData, sortEmployeesData } from '../utils'
+import { State } from "../types"
 
 export const getEmployeesData = (state: State) => state.employeesData
 export const getFilterType = (state: State) => state.filterType

@@ -1,8 +1,8 @@
-import { FilterType, SortType } from "./const";
-import { EmployeeData, FilterTypes, SortTypes } from "./types";
+import { FilterType, SortType } from "./const"
+import { EmployeeData, FilterTypes, SortTypes } from "./types"
 
 export const filterEmployeesData = (
-  employeesData: EmployeeData[], filterType: FilterTypes, isArchiveFilter: boolean
+  employeesData: EmployeeData[], filterType: FilterTypes, isArchiveFilter: boolean,
 ) => {
   const filteredEmployeesData = filterType === FilterType.NONE ? employeesData
     : employeesData.filter((it) => it.role === filterType)

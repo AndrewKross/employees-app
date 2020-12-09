@@ -1,10 +1,10 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { EmployeeData, State } from "../../types";
-import { AppRoute } from "../../const";
-import { withRouter } from 'react-router-dom';
-import { Table } from 'antd';
-import { getSortedEmployeesData } from "../../reducer/selectors";
+import React from 'react'
+import { connect } from 'react-redux'
+import { EmployeeData, State } from "../../types"
+import { AppRoute } from "../../const"
+import { withRouter } from 'react-router-dom'
+import { Table } from 'antd'
+import { getSortedEmployeesData } from "../../reducer/selectors"
 
 type Props = {
   employeesData: EmployeeData[]
@@ -37,7 +37,7 @@ const EmployeesList = ({ employeesData, history }: Props) => {
           onClick: () => {
             history.push(`${AppRoute.EMPLOYEE_PAGE + record.id}`)
           },
-        };
+        }
       }}/>
     </section>
   )

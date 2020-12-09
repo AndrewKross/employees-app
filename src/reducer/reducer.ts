@@ -1,5 +1,5 @@
-import { ActionTypes, EmployeeData, State } from "../types";
-import { FilterType, SortType } from "../const";
+import { ActionTypes, EmployeeData, State } from "../types"
+import { FilterType, SortType } from "../const"
 
 const initialState = {
   employeesData: [],
@@ -41,7 +41,7 @@ const ActionCreator = {
   addNewEmployee: (employeeData: EmployeeData): ActionTypes => ({
     type: ActionType.ADD_NEW_EMPLOYEE,
     payload: employeeData,
-  })
+  }),
 }
 
 const reducer = (state: State = initialState, action: ActionTypes): State => {
@@ -54,12 +54,12 @@ const reducer = (state: State = initialState, action: ActionTypes): State => {
     case ActionType.CHANGE_SORT_TYPE:
       return {
         ...state,
-        sortType: action.payload
+        sortType: action.payload,
       } as State
     case ActionType.CHANGE_FILTER_TYPE:
       return {
         ...state,
-        filterType: action.payload
+        filterType: action.payload,
       } as State
     case ActionType.CHANGE_IS_ARCHIVE_FILTER:
       return {
@@ -67,7 +67,7 @@ const reducer = (state: State = initialState, action: ActionTypes): State => {
         isArchiveFilter: action.payload,
       } as State
     case ActionType.EDIT_EMPLOYEE:
-      const { id } = action.payload as EmployeeData;
+      const { id } = action.payload as EmployeeData
       const index = state.employeesData.findIndex((it) => it.id === id)
       const dataWithEditedEmployee = [...state.employeesData]
       dataWithEditedEmployee[index] = action.payload as EmployeeData
