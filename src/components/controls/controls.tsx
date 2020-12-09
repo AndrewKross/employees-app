@@ -2,10 +2,11 @@ import React from "react";
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import { AppRoute, FilterType, SortType } from "../../const";
-import { ActionCreator } from "../../reducer";
+import { ActionCreator } from "../../reducer/reducer";
 import { Button, Checkbox, Radio, Select } from "antd";
 import "./controls.scss"
 import { State } from "../../types";
+import { getFilterType, getIsArchiveFilter, getSortType } from "../../reducer/selectors";
 
 const { Option } = Select
 
@@ -46,7 +47,7 @@ const Controls = ({ filterType, sortType, isArchiveFilter, changeSortType, chang
       <Button className="add-new-btn"
               onClick={() => {
                 history.push(`${AppRoute.EMPLOYEE_PAGE}new`)
-                console.log(`Выполнен переход на страницу создания новой карточки сотрудника`)
+                console.log('Выполнен переход на страницу создания новой карточки сотрудника')
               }}>
         Добавить нового сотрудника
       </Button>
@@ -55,9 +56,9 @@ const Controls = ({ filterType, sortType, isArchiveFilter, changeSortType, chang
 }
 
 const mapStateToProps = (state: State) => ({
-  filterType: state.filterType,
-  sortType: state.sortType,
-  isArchiveFilter: state.isArchiveFilter,
+  filterType: getFilterType(state),
+  sortType: getSortType(state),
+  isArchiveFilter: getIsArchiveFilter(state),
 })
 
 const mapDispatchToProps = (dispatch: any) => ({

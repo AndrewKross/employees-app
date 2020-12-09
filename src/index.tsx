@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { composeWithDevTools } from "redux-devtools-extension";
 import { Provider } from 'react-redux';
-import { ActionCreator, reducer } from './reducer';
+import { ActionCreator, reducer } from './reducer/reducer';
 import employeesData from './employees.json';
 import './index.scss';
 import App from './components/app/App';
@@ -14,7 +14,7 @@ const store = createStore(
 );
 
 store.dispatch(ActionCreator.loadEmployees(employeesData))
-console.log(`Данные загружены в базу`)
+console.log('Данные загружены в базу')
 
 ReactDOM.render(
   <Provider store={store}>
@@ -25,4 +25,4 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-console.log(`Приложение запущено`)
+console.log('Приложение запущено')

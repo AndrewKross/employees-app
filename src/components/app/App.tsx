@@ -17,7 +17,7 @@ const App = () => {
                }}/>
         <Route render={() => (
           <React.Fragment>
-            {console.error(`Выполнен переход на несуществующий маршрут`)}
+            {console.error('Выполнен переход на несуществующий маршрут')}
             <h1>Ошибка: 404. Страница не найдена.</h1>
             <Link to={AppRoute.MAIN}>Вернуться на главную</Link>
           </React.Fragment>
